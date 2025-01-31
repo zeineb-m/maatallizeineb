@@ -6,7 +6,7 @@ tools{
 stages{
       stage('GIT'){
              steps{ 
-                git  branch:'master',
+               
                 url:'https://github.com/zeineb-m/maatallizeineb.git'
 
 
