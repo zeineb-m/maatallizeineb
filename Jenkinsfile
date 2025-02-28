@@ -20,12 +20,16 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-
-         stage('MVN Sonarqube') {
+     stage('MVN Nexus') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+                sh 'mvn deploy -Dmaven.test.skip=true'
             }
         }
+        //  stage('MVN Sonarqube') {
+        //     steps {
+        //         sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+        //     }
+        // }
         
     }
 }
