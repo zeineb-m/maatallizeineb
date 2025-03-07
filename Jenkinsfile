@@ -27,7 +27,7 @@ pipeline {
         }
 stage('building')
         {  steps {
-           sh ' docker build -t zeinebmaatalli/timesheet-devops:1.0.0'
+           sh ' docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
         }
         }
     stage('deploy')
