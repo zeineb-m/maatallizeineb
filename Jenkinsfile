@@ -27,15 +27,15 @@ pipeline {
             }
         } 
         
-stage('Building image') {
+      stage('Building image') {
             steps {
-                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 . '
             }
         }
 
           stage('Deploy Image') {
                     steps {
-                        sh 'docker push -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+                        sh 'docker push -t zeinebmaatalli/timesheet-devops:1.0.0 . '
                     }
                 }
     }
