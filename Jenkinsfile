@@ -25,15 +25,16 @@ pipeline {
                 sh 'mvn deploy -Dmaven.test.skip=true'
             }
         }
-stage('building')
-        {  steps {
-           sh ' docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+stage('Building image') {
+            steps {
+                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+            }
         }
-        }
-    stage('deploy')
-        {  steps {
-           sh ' docker push -t zeinebmaatalli/timesheet-devops:1.0.0'
-        }
-        }
+
+          stage('Deploy Image') {
+                    steps {
+                        sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+                    }
+                }
     }
 }
