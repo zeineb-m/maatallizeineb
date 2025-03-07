@@ -2,19 +2,15 @@ pipeline {
     agent any
 
     tools {
-        jdk "JAVA_HOME"
-        maven "M2_HOME"
-    }
-
-    environment {
-        MVN_CLI_OPTS = '-DskipTests'
+        jdk 'JAVA_HOME'
+        maven 'M2_HOME'
     }
 
     stages {
+
         stage('GIT') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/zeineb-m/maatallizeineb'
+            steps {https://github.com/zeineb-m/maatallizeineb/tree/master
+                git branch: 'main', url: 'https://github.com/zeineb-m/maatallizeineb.git'
             }
         }
 
@@ -24,16 +20,40 @@ pipeline {
             }
         }
 
-        stage('Package Stage') {
+        // stage('MVN SONARQUBE') {
+        //     steps {
+        //         sh "mvn sonar:sonar -Dsonar.login=squ_c0931e4b9fc970410f5037c889771f1f9db8c76f -Dmaven.test.skip=true"
+        //     }
+        // }
+
+        stage('Deploy to Nexus') {
             steps {
-                sh 'mvn package -DskipTests'
+                sh 'mvn deploy -Dmaven.test.skip=true'
             }
         }
 
-        stage('Building Docker Image') {
+        stage('Build Image') {
             steps {
-                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0 .'
             }
         }
+
+       /* stage('Deploy Image') {
+            steps {
+                sh '
+                    docker login -u ademselmani -p 233JFT6118
+                    docker push ademselmani/timesheet-devops:1.0
+                '
+            }
+        }
+
+        stage('Run Docker Compose') {
+            steps {
+                sh '
+                    docker-compose down
+                    docker-compose up
+                '
+            }
+        }*/
     }
 }
