@@ -1,42 +1,39 @@
 pipeline {
     agent any
 
+    tools {
+        jdk "JAVA_HOME"
+        maven "M2_HOME"
+    }
+
+    environment {
+        MVN_CLI_OPTS = '-DskipTests'
+    }
+
     stages {
-        stage('Git') {
+        stage('GIT') {
             steps {
-                git branch : 'master ',
-                url : 'https://github.com/zeineb-m/maatallizeineb.git'
-            }
-        }
-         stage('Compile') {
-            steps {
-                sh 'mvn clean compile '
-            }
-        }
-/*
-        stage('MVN Sonarqube') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
-            }
-        }
-        */
-  
-  /* stage('MVN Nexus') {
-            steps {
-                sh 'mvn deploy -Dmaven.test.skip=true'
-            }
-        } 
-        */ 
-      stage('Building image') {
-            steps {
-                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 . '
+                git branch: 'main',
+                    url: 'https://github.com/zeineb-m/maatallizeineb'
             }
         }
 
-          stage('Deploy Image') {
-                    steps {
-                        sh 'docker push -t zeinebmaatalli/timesheet-devops:1.0.0 . '
-                    }
-                }
+        stage('Compile Stage') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Package Stage') {
+            steps {
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Building Docker Image') {
+            steps {
+                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0.0 .'
+            }
+        }
     }
 }
