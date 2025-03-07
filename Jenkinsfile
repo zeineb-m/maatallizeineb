@@ -30,6 +30,10 @@ stage('building')
            sh ' docker build -t zeinebmaatalli/timesheet-devops:1.0.0'
         }
         }
-    
+    stage('deploy')
+        {  steps {
+           sh ' docker push -t zeinebmaatalli/timesheet-devops:1.0.0'
+        }
+        }
     }
 }
