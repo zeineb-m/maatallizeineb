@@ -27,7 +27,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency> 
 
-
+<dependency>
+  <groupId>tn.esprit.spring.services</groupId>
+  <artifactId>timesheet-devops</artifactId>
+  <version>1.0</version>
+</dependency>
 
 
 		<dependency>
