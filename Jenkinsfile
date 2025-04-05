@@ -32,11 +32,11 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
-            steps {
-                sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0 .'
-            }
-        }
+        // stage('Build Image') {
+        //     steps {
+        //         sh 'docker build -t zeinebmaatalli/timesheet-devops:1.0 .'
+        //     }
+        // }
 
        /* stage('Deploy Image') {
             steps {
